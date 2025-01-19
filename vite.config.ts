@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import path from 'path';
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 
 
@@ -10,7 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-     imports: [
+      imports: [
         'vue',
         'vue-router',
         'vue-i18n',
@@ -18,14 +20,18 @@ export default defineConfig({
         'pinia',
       ],
       dts: 'src/types/auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
-      dirs: ['src/stores', 'src/components', 'src/views','src/common'],
+      dirs: ['src/stores', 'src/components', 'src/views', 'src/common'],
       eslintrc: {
         enabled: true, // 默认关闭，设置为 true 自动生成 ESLint 配置文件
         filepath: './.eslintrc-auto-import.json', // 配置文件路径
       },
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
   ],
-  
+
   server: {
     proxy: {
       '/api': {
@@ -38,8 +44,8 @@ export default defineConfig({
   resolve: {
     // 设置文件./src路径为 @
     alias: {
-    "@": path.resolve(__dirname, "src")
+      "@": path.resolve(__dirname, "src")
     }
   }
-  
+
 })
