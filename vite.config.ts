@@ -12,6 +12,13 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
+      // 目标文件
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/, /\.vue\?vue/, // .vue
+        /\.md$/, // .md
+      ],
+
       imports: [
         'vue',
         'vue-router',
@@ -19,8 +26,8 @@ export default defineConfig({
         '@vueuse/core',
         'pinia',
       ],
-      dts: 'src/types/auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
-      dirs: ['src/stores', 'src/components', 'src/views', 'src/common'],
+      dts: './src/types/auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
+      dirs: ['src/stores', 'src/components', 'src/views'],
       eslintrc: {
         enabled: true, // 默认关闭，设置为 true 自动生成 ESLint 配置文件
         filepath: './.eslintrc-auto-import.json', // 配置文件路径
@@ -28,6 +35,8 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
+      dirs: ['src/components', 'src/views'],
+      dts: 'src/components.d.ts',
       resolvers: [ElementPlusResolver()],
     }),
   ],
