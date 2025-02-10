@@ -10,6 +10,7 @@ import { ElMain, ElContainer, ElHeader, ElScrollbar, ElAside } from 'element-plu
       <ElContainer style="height: 100%; display: flex; flex-direction: row;" direction="horizontal">
         <!-- 左侧区域：带滚动条 -->
         <ElAside width="200px" style="height: 100%">
+          你好
           <SideSlot />
         </ElAside>
         <!-- 右侧区域：带滚动条 -->
